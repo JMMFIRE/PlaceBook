@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import android.Manifest                                                                             //Use instead of import java.util.jar.Manifest
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -37,8 +38,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {                  
     //pg 262
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    //pg 265
     companion object {
+        //pg 366(pdf)
+        const val EXTRA_BOOKMARK_ID = "com.raywenderlich.placebook.EXTRA_BOOKMARK_ID"               //Defines a key for storing the bookmark ID in the intent extras
+        //pg 265
         private const val REQUEST_LOCATION = 1                                                      //Request code that'll be passed to requestPermissions(). Identifies the specific permission request when returned by Android
         private const val TAG = "MapsActivity"                                                      //Passed to Log.e method
     }
@@ -205,6 +208,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {                  
         )
         //pg 333 (pdf)
         marker?.tag = PlaceInfo(place, photo)                                                       //Marker tag holds
+
+        //pg 349 (pdf)
+        marker?.showInfoWindow()                                                                    //Instructs the map to display the Info window for the marker
     }
 
     //pg 332 (pdf)
@@ -220,13 +226,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {                  
 
     //pg 334 (pdf)
     private fun handleInfoWindowClick(marker: Marker) {                                             //Handles taps on a place info window.
-        val placeInfo = (marker.tag as PlaceInfo)                                                   //Get the placeInfo from the marker.tag
-        if (placeInfo.place != null) {
-            GlobalScope.launch {
-                mapsViewModel.addBookmarkFromPlace(placeInfo.place, placeInfo.image)
+        when (marker.tag) {
+            is MapsActivity.PlaceInfo -> {
+                val placeInfo = (marker.tag as PlaceInfo)
+                if (placeInfo.place != null && placeInfo.image != null) {
+                    GlobalScope.launch {
+                        mapsViewModel.addBookmarkFromPlace(placeInfo.place, placeInfo.image)
+                    }
+                }
+                marker.remove();
+            }
+            is MapsViewModel.BookmarkMarkerView -> {
+                val bookmarkMarkerView = (marker.tag as MapsViewModel.BookmarkMarkerView)
+                marker.hideInfoWindow()
+                bookmarkMarkerView.id?.let {
+                    startBookmarkDetails(it)
+                }
             }
         }
-        marker.remove()                                                                             //Remove marker from the map
     }
 
     //pg 340 (pdf)
@@ -235,6 +252,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {                  
 
         val marker = map.addMarker(MarkerOptions()
             .position(bookmark.location)
+            .title(bookmark.name)
+            .snippet(bookmark.phone)
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
             .alpha(0.8f))
 
@@ -261,5 +280,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {                  
                 }
             }
         )
+    }
+
+    //pg 363 (pdf)
+    private fun startBookmarkDetails(bookmarkId: Long) {                                            //Used to start the BookmarkDetailsActivity using an explicit intent. Will be called when the user taps on an info window
+        val intent = Intent(this, BookmarkDetailsActivity::class.java)
+        intent.putExtra(EXTRA_BOOKMARK_ID, bookmarkId)                                              //Adds bookmarkId as an extra parameter on the Intent
+        startActivity(intent)
     }
 }

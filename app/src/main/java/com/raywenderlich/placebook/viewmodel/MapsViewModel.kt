@@ -1,6 +1,7 @@
 package com.raywenderlich.placebook.viewmodel
 
 import android.app.Application
+import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -10,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import com.raywenderlich.placebook.model.Bookmark
 import com.raywenderlich.placebook.repository.BookmarkRepo
+import com.raywenderlich.placebook.util.ImageUtils
 
 //pg 316
 // ViewModel layer is used to interact between View and the data provided by BookMarkRepo.
@@ -33,6 +35,8 @@ class MapsViewModel(application: Application) : AndroidViewModel(application) { 
 
         val newId = bookmarkRepo.addBookmark(bookmark)                                              //Save to repository
 
+        //pg 349 (pdf)
+        image?.let { bookmark.setImage(it, getApplication()) }                                      //Calls setImage() if the image != null
 
         Log.i(TAG, "New bookmark $newId added to the database.")
     }
@@ -40,13 +44,25 @@ class MapsViewModel(application: Application) : AndroidViewModel(application) { 
     //pg 338 (pdf)
     data class BookmarkMarkerView(                                                                  //Holds info by the View to plot a marker for a single bookmark
         var id: Long? = null,
-        var location: LatLng = LatLng(0.0, 0.0))
+        var location: LatLng = LatLng(0.0, 0.0),
+        var name: String = "",
+        var phone: String = "")
+    //pg 351 (pdf)
+    {
+        fun getImage(context: Context): Bitmap? {
+            id?.let {
+                return ImageUtils.loadBitmapFromFile(context, Bookmark.generateImageFilename(it))
+            }
+            return null
+        }
+    }
 
     //pg 338 (pdf)
     private fun bookmarkToMarkerView(bookmark: Bookmark) : MapsViewModel.BookmarkMarkerView {       //Helper method that converts a Bookmark object from the repo into a BookMarjMarjerView
         return MapsViewModel.BookmarkMarkerView(bookmark.id,
-        LatLng(bookmark.latitude, bookmark.longitude)
-        )
+            LatLng(bookmark.latitude, bookmark.longitude),
+            bookmark.name,
+            bookmark.phone)
     }
 
     //pg 338 (pdf)
