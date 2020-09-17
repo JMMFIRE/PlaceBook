@@ -81,11 +81,12 @@ class BookmarkDetailsActivity : AppCompatActivity() {
             bookmarkView.notes = editTextNotes.text.toString()
             bookmarkView.address = editTextAddress.text.toString()
             bookmarkView.phone = editTextPhone.text.toString()
+            bookmarkDetailsViewModel.updateBookmark(bookmarkView)
         }
         finish()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {                                   //Called when user selects a Toolbar checkmark item
         when (item.itemId) {
             R.id.action_save -> {
                 saveChanges()
