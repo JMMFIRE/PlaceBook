@@ -9,7 +9,7 @@ import com.raywenderlich.placebook.model.Bookmark
 //pg 310
 @Dao                                                                                                //Tells Room this is a Data Access Object
 interface BookmarkDao {
-     @Query("SELECT * FROM Bookmark")                                                         //Reads all the of the bookmarks and returns them as a list of Bookmarks
+     @Query("SELECT * FROM Bookmark ORDER BY name")                                           //Reads all the of the bookmarks and returns them as a list of Bookmarks
      fun loadAll(): LiveData<List<Bookmark>>
 
     @Query("SELECT * FROM Bookmark WHERE id = :bookmarkId")

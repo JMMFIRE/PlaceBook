@@ -3,10 +3,12 @@ package com.raywenderlich.placebook.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
+import android.net.Uri
+import android.os.Environment
+import java.io.*
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.Date
 
 //pg 346 (pdf)
 object ImageUtils {                                                                                 //Declared as an object and behaves as a singleton. Lets you directly calls the methods without creating a ImageUtils object
@@ -34,4 +36,71 @@ object ImageUtils {                                                             
         return BitmapFactory.decodeFile(filePath)
     }
 
+    //pg 399 (pdf)
+    @Throws(IOException::class)                                                                     //Accounts for File.createTempFile() throwing an IO exception
+    fun createUniqueImageFile(context: Context) : File {                                            //Returns an empty File in the app's private pictures folder
+        val timeStamp = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+        val filename = "Placebook_" + timeStamp + "_"
+        val filesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(filename, ".jpg", filesDir)
+    }
+
+    //pg 403 (pdf)
+    private fun calculateInSampleSize(                                                              //Used to calculate the optimum inSampleSize
+        width: Int, height: Int, reqWidth: Int, reqHeight: Int): Int {
+
+        var inSampleSize = 1
+
+        if (height > reqHeight || width > reqWidth) {
+            val halfHeight = height / 2
+            val halfWidth = width / 2
+            while (halfHeight / inSampleSize >= reqHeight &&
+                halfWidth / inSampleSize >= reqWidth) {
+                inSampleSize *= 2
+            }
+        }
+        return  inSampleSize
+    }
+
+    //pg 404 (pdf)
+    fun decodeFileToSize(filePath: String, width: Int, height: Int): Bitmap {                       //Used to decode file. Will be called when image needs to be downsized
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true                                                           //Tells BitmapFactory to not load the actual image, just its size
+        BitmapFactory.decodeFile(filePath, options)
+
+        options.inSampleSize = calculateInSampleSize(                                               //Calls image with the image width and height and the requested width and height
+            options.outWidth, options.outHeight, width, height)
+        options.inJustDecodeBounds = false                                                          //Set to false to finally load the whole image
+        return BitmapFactory.decodeFile(filePath, options)                                          //Loads the downsampled image from the file and returns it
+    }
+
+    //pg 408 (pdf)
+    fun decodeUriStreamToSize(uri: Uri, width: Int, height: Int, context: Context): Bitmap? {
+        var inputStream: InputStream? = null
+        try {
+            val options: BitmapFactory.Options
+            inputStream = context.contentResolver.openInputStream(uri)                              //Open the inputStream for the Uri
+            if (inputStream != null) {
+                options = BitmapFactory.Options()                                                   //Determine image size
+                options.inJustDecodeBounds = false
+                BitmapFactory.decodeStream(inputStream, null, options)
+                inputStream.close()                                                                 //Close and open the inputStream and check for null
+                inputStream = context.contentResolver.openInputStream(uri)
+                if (inputStream != null) {
+                    options.inSampleSize = calculateInSampleSize(                                   //Image is loaded from the stream
+                        options.outWidth, options.outHeight, width, height)
+                    options.inJustDecodeBounds = false
+                    val bitmap = BitmapFactory.decodeStream(
+                        inputStream, null, options)
+                    inputStream.close()
+                    return bitmap                                                                   //Return image to caller
+                }
+            }
+            return null
+        } catch (e: Exception) {
+            return null
+        } finally {
+            inputStream?.close()
+        }
+    }
 }

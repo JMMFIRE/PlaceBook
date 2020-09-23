@@ -8,7 +8,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.raywenderlich.placebook.model.Bookmark
 
 //pg 312
-@Database(entities = arrayOf(Bookmark::class), version = 2)                                         //Identify a Database class to Room
+@Database(entities = arrayOf(Bookmark::class), version = 3)                                         //Identify a Database class to Room
 abstract class PlaceBookDatabase : RoomDatabase() {                                                 //Room requires Database class to be abstract and inherit from RoomDatabase
 
     abstract fun bookmarkDao(): BookmarkDao                                                         //Defined to return a DAO interface

@@ -26,7 +26,11 @@ class BookmarkDetailsViewModel(application: Application) : AndroidViewModel(appl
         var name: String = "",
         var phone: String = "",
         var address: String = "",
-        var notes: String = ""
+        var notes: String = "",
+        var category: String = "",
+        var longitude: Double = 0.0,
+        var latitude: Double = 0.0,
+        var placeId: String? = null
     ) {
 
         fun getImage(context: Context): Bitmap? {
@@ -34,6 +38,13 @@ class BookmarkDetailsViewModel(application: Application) : AndroidViewModel(appl
                 return ImageUtils.loadBitmapFromFile(context, Bookmark.generateImageFilename(it))   //Loads image associated with the bookmark
             }
             return null
+        }
+
+        //pg 405 (pdf)
+        fun setImage(context: Context, image: Bitmap) {                                                 //Takes a Bitmap image and saves it to the associated image file for the current BookmarkView
+            id?.let {
+                ImageUtils.saveBitmapToFile(context, image, Bookmark.generateImageFilename(it))
+            }
         }
     }
 
@@ -44,7 +55,11 @@ class BookmarkDetailsViewModel(application: Application) : AndroidViewModel(appl
             bookmark.name,
             bookmark.phone,
             bookmark.address,
-            bookmark.notes
+            bookmark.notes,
+            bookmark.category,
+            bookmark.longitude,
+            bookmark.latitude,
+            bookmark.placeId
         )
     }
 
@@ -52,7 +67,9 @@ class BookmarkDetailsViewModel(application: Application) : AndroidViewModel(appl
         val bookmark = bookmarkRepo.getLiveBookmark(bookmarkId)
         bookmarkDetailsView = Transformations.map(bookmark)
         { repoBookmark ->
+            repoBookmark?.let { repoBookmark ->
                 bookmarkToBookmarkView(repoBookmark)
+            }
         }
     }
 
@@ -74,6 +91,7 @@ class BookmarkDetailsViewModel(application: Application) : AndroidViewModel(appl
             bookmark.phone = bookmarkView.phone
             bookmark.address = bookmarkView.address
             bookmark.notes = bookmarkView.notes
+            bookmark.category = bookmarkView.category                                               //Should be bookmarkView.category?
         }
         return bookmark
     }
@@ -83,6 +101,29 @@ class BookmarkDetailsViewModel(application: Application) : AndroidViewModel(appl
         GlobalScope.launch {                                                                        //Coroutine used to run method in the background
             val bookmark = bookmarkViewToBookmark(bookmarkView)                                     //BookmarkDetailsView is converted to a Bookmark
             bookmark?.let { bookmarkRepo.updateBookmark(it) }                                       //If the Bookmark isn't null, it's updated through the repo
+        }
+    }
+
+
+    //pg 421 (pdf)
+    fun getCategoryResourceId(category: String): Int? {
+        return bookmarkRepo.getCategoryResourceId(category)
+    }
+
+    //pg 422 (pdf)
+    fun getCategories(): List<String> {                                                             //Pass through method. Returns the categories from the bookmark repo
+        return bookmarkRepo.categories
+    }
+
+    //pg 431 (pdf)
+    fun deleteBookmark(bookmarkDetailsView: BookmarkDetailsView) {                                  //Takes a BookmarkDetailsView and loads the bookmark from the repo
+        GlobalScope.launch {                                                                        //Wrapped in coroutine. Runs in background
+            val bookmark = bookmarkDetailsView.id?.let {
+                bookmarkRepo.getBookmark(it)
+            }
+            bookmark?.let {
+                bookmarkRepo.deleteBookmark(it)                                                     //If bookmark is found, calls deleteBookmark()
+            }
         }
     }
 }
