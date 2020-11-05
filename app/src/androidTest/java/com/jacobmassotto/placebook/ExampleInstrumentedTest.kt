@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook
+package com.jacobmassotto.placebook
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,10 +1,10 @@
-package com.raywenderlich.placebook.db
+package com.jacobmassotto.placebook.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
-import com.raywenderlich.placebook.model.Bookmark
+import com.jacobmassotto.placebook.model.Bookmark
 
 //pg 310
 @Dao                                                                                                //Tells Room this is a Data Access Object

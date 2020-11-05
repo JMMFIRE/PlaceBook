@@ -1,12 +1,12 @@
-package com.raywenderlich.placebook.repository
+package com.jacobmassotto.placebook.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.google.android.libraries.places.api.model.Place
-import com.raywenderlich.placebook.R
-import com.raywenderlich.placebook.db.BookmarkDao
-import com.raywenderlich.placebook.db.PlaceBookDatabase
-import com.raywenderlich.placebook.model.Bookmark
+import com.jacobmassotto.placebook.R
+import com.jacobmassotto.placebook.db.BookmarkDao
+import com.jacobmassotto.placebook.db.PlaceBookDatabase
+import com.jacobmassotto.placebook.model.Bookmark
 
 // Used to manage bookmarks. Uses BookmarkDao from PlaceBookDatabase
 // to access the underlying bookmarks in the db.

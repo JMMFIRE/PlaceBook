@@ -1,11 +1,11 @@
-package com.raywenderlich.placebook.model
+package com.jacobmassotto.placebook.model
 
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.raywenderlich.placebook.util.FileUtils
-import com.raywenderlich.placebook.util.ImageUtils
+import com.jacobmassotto.placebook.util.FileUtils
+import com.jacobmassotto.placebook.util.ImageUtils
 
 @Entity                                                                                             //Tells Room that this is a database entity class
 data class Bookmark(                                                                                //Define default values. This will allow us to construct a Bookmark entity with only partial values later

@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook.adapter
+package com.jacobmassotto.placebook.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.raywenderlich.placebook.R
-import com.raywenderlich.placebook.ui.MapsActivity
-import com.raywenderlich.placebook.viewmodel.MapsViewModel
+import com.jacobmassotto.placebook.R
+import com.jacobmassotto.placebook.ui.MapsActivity
+import com.jacobmassotto.placebook.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.bookmark_item.view.*
-import java.text.FieldPosition
 
 //pg 388 (pdf)
 class BookmarkListAdapter(                                                                          //Adapter takes two arguments: a list of BookmarkView items and a reference to the MapsActivity

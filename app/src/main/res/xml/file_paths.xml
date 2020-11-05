@@ -3,5 +3,5 @@
     <external-path
         name="placebook_images"
         path=
-            "Android/data/com.raywenderlich.placebook/files/Pictures" />
+            "Android/data/com.jacobmassotto.placebook/files/Pictures" />
 </paths>

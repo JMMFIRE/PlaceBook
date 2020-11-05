@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook.ui
+package com.jacobmassotto.placebook.ui
 
 import android.app.AlertDialog
 import android.app.Dialog

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.raywenderlich.placebook">
+    package="com.jacobmassotto.placebook">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -32,7 +32,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.MapsActivity"
+            android:name="com.jacobmassotto.placebook.ui.MapsActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -43,7 +43,7 @@
 
 
         <activity
-            android:name="com.raywenderlich.placebook.ui.BookmarkDetailsActivity"
+            android:name="com.jacobmassotto.placebook.ui.BookmarkDetailsActivity"
             android:label="Bookmark"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
@@ -51,7 +51,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.raywenderlich.placebook.fileprovider"
+            android:authorities="com.jacobmassotto.placebook.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
         <meta-data

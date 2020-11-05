@@ -1,11 +1,10 @@
-package com.raywenderlich.placebook.db
+package com.jacobmassotto.placebook.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.google.android.libraries.places.api.model.Place
-import com.raywenderlich.placebook.model.Bookmark
+import com.jacobmassotto.placebook.model.Bookmark
 
 //pg 312
 @Database(entities = arrayOf(Bookmark::class), version = 3)                                         //Identify a Database class to Room

@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook.adapter
+package com.jacobmassotto.placebook.adapter
 
 import android.app.Activity
 import android.view.View
@@ -6,9 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
-import com.raywenderlich.placebook.R
-import com.raywenderlich.placebook.ui.MapsActivity
-import com.raywenderlich.placebook.viewmodel.MapsViewModel
+import com.jacobmassotto.placebook.R
+import com.jacobmassotto.placebook.ui.MapsActivity
+import com.jacobmassotto.placebook.viewmodel.MapsViewModel
 
 class BookmarkInfoWindowAdapter (val context: Activity) : GoogleMap.InfoWindowAdapter {                 //Declare BookmarkWindowAdapter to take single parameter representing hosting activity and implement GoogleMap.InfoWindowAdapter
 

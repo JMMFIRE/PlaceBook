@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook.util
+package com.jacobmassotto.placebook.util
 
 import android.content.Context
 import java.io.File

@@ -1,30 +1,25 @@
-package com.raywenderlich.placebook.ui
+package com.jacobmassotto.placebook.ui
 
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewParent
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.raywenderlich.placebook.R
-import com.raywenderlich.placebook.viewmodel.BookmarkDetailsViewModel
+import com.jacobmassotto.placebook.R
+import com.jacobmassotto.placebook.viewmodel.BookmarkDetailsViewModel
 import kotlinx.android.synthetic.main.activity_bookmark_details.*
 import androidx.lifecycle.Observer
-import com.raywenderlich.placebook.util.ImageUtils
+import com.jacobmassotto.placebook.util.ImageUtils
 import java.io.File
 import java.net.URLEncoder
-import java.text.FieldPosition
 
 //pg 361 (pdf)
 class BookmarkDetailsActivity : AppCompatActivity(),

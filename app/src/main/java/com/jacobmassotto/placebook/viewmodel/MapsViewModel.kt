@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook.viewmodel
+package com.jacobmassotto.placebook.viewmodel
 
 import android.app.Application
 import android.content.Context
@@ -9,9 +9,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
-import com.raywenderlich.placebook.model.Bookmark
-import com.raywenderlich.placebook.repository.BookmarkRepo
-import com.raywenderlich.placebook.util.ImageUtils
+import com.jacobmassotto.placebook.model.Bookmark
+import com.jacobmassotto.placebook.repository.BookmarkRepo
+import com.jacobmassotto.placebook.util.ImageUtils
 
 //pg 316
 // ViewModel layer is used to interact between View and the data provided by BookMarkRepo.

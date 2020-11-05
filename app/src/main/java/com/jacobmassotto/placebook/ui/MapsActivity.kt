@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook.ui
+package com.jacobmassotto.placebook.ui
 
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +16,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.location.Location
 import android.view.WindowManager
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -36,11 +35,10 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import com.raywenderlich.placebook.R
-import com.raywenderlich.placebook.adapter.BookmarkInfoWindowAdapter
-import com.raywenderlich.placebook.adapter.BookmarkListAdapter
-import com.raywenderlich.placebook.viewmodel.MapsViewModel
-import dagger.internal.ProviderOfLazy
+import com.jacobmassotto.placebook.R
+import com.jacobmassotto.placebook.adapter.BookmarkInfoWindowAdapter
+import com.jacobmassotto.placebook.adapter.BookmarkListAdapter
+import com.jacobmassotto.placebook.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.drawer_view_maps.*
 import kotlinx.android.synthetic.main.main_view_maps.*

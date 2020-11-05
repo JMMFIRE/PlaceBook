@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook
+package com.jacobmassotto.placebook
 
 import org.junit.Test
 

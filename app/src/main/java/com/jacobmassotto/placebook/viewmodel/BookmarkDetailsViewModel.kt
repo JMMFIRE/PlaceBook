@@ -1,4 +1,4 @@
-package com.raywenderlich.placebook.viewmodel
+package com.jacobmassotto.placebook.viewmodel
 
 import android.app.Application
 import android.content.Context
@@ -6,12 +6,11 @@ import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.raywenderlich.placebook.model.Bookmark
-import com.raywenderlich.placebook.repository.BookmarkRepo
-import com.raywenderlich.placebook.util.ImageUtils
+import com.jacobmassotto.placebook.model.Bookmark
+import com.jacobmassotto.placebook.repository.BookmarkRepo
+import com.jacobmassotto.placebook.util.ImageUtils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.net.Inet4Address
 
 //pg 366 (pdf)
 class BookmarkDetailsViewModel(application: Application) : AndroidViewModel(application) {
